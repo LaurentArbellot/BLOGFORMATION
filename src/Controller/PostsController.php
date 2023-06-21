@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 #[Route('/articles')]
 class PostsController extends AbstractController
 {
@@ -29,6 +30,10 @@ class PostsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // a faire pour que la date se cree au moment du validform
+            // $post->setCreatedAt(new \DateTimeImmutable());
+            // sion veut que le setter s'en charge
+            // $post->setCreatedAt();
             $postsRepository->save($post, true);
 
             return $this->redirectToRoute('app_posts_index', [], Response::HTTP_SEE_OTHER);
