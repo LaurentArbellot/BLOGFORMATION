@@ -14,7 +14,59 @@
         <script defer src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" ></script>   
         {% endblock %}
     </head>
+    
+
     <body class="container-fluid p-3">
-        {% block body %}{% endblock %}
+    {% set page= app.request.get('_route')%}
+    <header>
+        <nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary opacity-75">
+            <div class="container-fluid">
+
+                <a class="navbar-brand" href="{{ path ('app_main_home')}}">BLOG</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                    <a class="nav-link {% if page == 'app_posts_index' %}active{% endif %}"  href="{{ path ('app_posts_index')}}">Blog</a>
+                    <a class="nav-link {% if page == 'app_main_contact' %}active{% endif %}" href="{{path('app_main_contact')}}">Contact</a>
+                    <a class="nav-link {% if page == 'app_posts_new' %}active{% endif %}" href="{{path('app_posts_new')}}">Nouvelle Publication</a>
+                   
+                    </div>
+
+                    {# (###menu droite) #}
+                <div class='navbar-nav ms-auto '>
+
+                    <a class='navlink'  href="{{path ('app_main_home')}}" ></a>
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="{{path ('app_main_home')}}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            DropdownLink
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{path ('app_main_home')}}"></a>
+                            <a class="dropdown-item" href="{{path ('app_main_home')}}">Contact</a>
+                            <hr class="dropdown-divider">
+                            <a class="dropdown-item" href="{{path ('app_main_home')}}">Something else here</a>
+                        </div>
+                    </div>
+                </div>
+
+                {# recherche #}
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">recherche</button>
+                </form>
+
+                </div>
+            </div>
+
+        </nav>
+    </header>
+    <main class="container-lg pt-3  px-4 p-lg-0 mt-5">
+        {% block main %}{% endblock %}
+        
+    </main>
     </body>
 </html>
