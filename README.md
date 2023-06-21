@@ -7,7 +7,7 @@ symfony console doctrine:schema:validate (Validation du schéma de BDD)
 symfony console make:migration (Création d'une migration)
 symfony console doctrine:migrations:migrate (Application de la migration en BDD)
 
-##SLUG :
+## SLUG :
 composer require stof/doctrine-extensions-bundle
 
 [la documentation] https://symfony.com/bundles/StofDoctrineExtensionsBundle/current/index.html
