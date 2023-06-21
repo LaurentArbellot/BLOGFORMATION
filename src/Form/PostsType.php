@@ -13,10 +13,10 @@ class PostsType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('content')
-            ->add('slug')
+            ->add('content') ;
+          
             
-        ;
+       
     }
 
     public function configureOptions(OptionsResolver $resolver): void

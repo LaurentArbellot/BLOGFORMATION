@@ -29,8 +29,8 @@
                 <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ post.updatedAt ? post.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_posts_show', {'id': post.id}) }}">show</a>
-                    <a href="{{ path('app_posts_edit', {'id': post.id}) }}">edit</a>
+                    <a href="{{ path('app_posts_show', {'slug': post.slug}) }}">show</a>
+                    <a href="{{ path('app_posts_edit', {'slug': post.slug}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
