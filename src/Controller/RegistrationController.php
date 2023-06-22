@@ -27,10 +27,14 @@ class RegistrationController extends AbstractController
     {
         $this->emailVerifier = $emailVerifier;
     }
-
-    #[Route('/register', name: 'app_register')]
+    
+    #[Route('/inscription', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginFormAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
+        if ($this->getUser()) {
+            $this->addFlash('danger', 'Déconnectez vous pour vous inscrire.');
+           return $this->redirectToRoute('app_main_home');
+        }
         $user = new Users();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -52,11 +56,11 @@ class RegistrationController extends AbstractController
                 (new TemplatedEmail())
                     ->from(new Address('laurentarbellot@onverra.fr', 'LaurentA'))
                     ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')
+                    ->subject('Veuillez confirmer votre email SVP')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
-            // do anything else you need here, like send an email
-
+           
+            $this->addFlash('warning', 'un email de confirmation vous a été envoyé.');
             return $userAuthenticator->authenticateUser(
                 $user,
                 $authenticator,
@@ -65,8 +69,9 @@ class RegistrationController extends AbstractController
         }
 
         return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
+            'registrationForm' => $form,
         ]);
+    
     }
 
     #[Route('/verify/email', name: 'app_verify_email')]
@@ -94,8 +99,8 @@ class RegistrationController extends AbstractController
         }
 
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
-        $this->addFlash('success', 'Your email address has been verified.');
+        $this->addFlash('success', 'Votre email a été vérifié avec succès.');
 
-        return $this->redirectToRoute('app_register');
+        return $this->redirectToRoute('app_main_home');
     }
 }
