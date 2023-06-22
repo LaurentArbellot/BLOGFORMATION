@@ -13,6 +13,11 @@
 symphonie console make:user (création de l'utilisateur)
 symfony console make:auth (Authentification -->connexion/deconnexion)
 ```
+## l'inscription
+```
+symfony console make:registration-form
+composer require symfonycasts/verify-email-bundle(a installer)
+```
 ## Les Entités :
 ```
 

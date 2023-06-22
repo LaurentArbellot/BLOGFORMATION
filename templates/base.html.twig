@@ -32,14 +32,15 @@
                     <div class="navbar-nav">
                     <a class="nav-link {% if page == 'app_posts_index' %}active{% endif %}"  href="{{ path ('app_posts_index')}}">Blog</a>
                     <a class="nav-link {% if page == 'app_main_contact' %}active{% endif %}" href="{{path('app_main_contact')}}">Contact</a>
-                    <a class="nav-link {% if page == 'app_posts_new' %}active{% endif %}" href="{{path('app_posts_new')}}">Nouvelle Publication</a>
+                    <a class="nav-link {% if page == 'app_posts_new' %}active{% endif %}" href="{{path('app_posts_new')}}">Publier</a>
                    
                     </div>
 
                     {# (###menu droite) #}
                 <div class='navbar-nav ms-auto '>
 
-                    <a class='navlink'  href="{{path ('app_main_home')}}" ></a>
+                    <a class='nav-link'  href="{{path ('app_login')}}" >Connexion</a>
+
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="{{path ('app_main_home')}}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             DropdownLink
