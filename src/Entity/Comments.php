@@ -52,7 +52,7 @@ class Comments
     #[ORM\PrePersist]
     public function setCreatedAt()
     {
-        $this->createdAt = new \DateTimeImmutable();
+        $this->createdAt = new \DateTimeImmutable("now", new \DateTimeZone("Europe/Paris"));
 
        
     }
@@ -65,7 +65,7 @@ class Comments
     #[ORM\PreUpdate]
     public function setUpdatedAt()
     {
-        $this->updatedAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable("now", new \DateTimeZone("Europe/Paris"));
 
       
     }
