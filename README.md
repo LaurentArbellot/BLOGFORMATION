@@ -15,7 +15,7 @@ symfony console make:auth (Authentification -->connexion/deconnexion)
 ```
 ## l'inscription
 ```
-symfony console make:registration-form
+symfony console make:registration-form(formulaire d'inscription)
 composer require symfonycasts/verify-email-bundle(a installer)
 ```
 ## Les Entités :
