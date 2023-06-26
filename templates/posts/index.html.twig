@@ -3,7 +3,7 @@
 {% block title %}Posts index{% endblock %}
 
 {% block main %}
-    <h1>Posts index</h1>
+    <h1>Liste des Publications</h1>
 
     
 
@@ -11,12 +11,11 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Title</th>
-                <th>Slug</th>
-                <th>Content</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>actions</th>
+                <th>Titre</th>
+                <th>Publication</th>
+                <th>Date de creation</th>
+                <th>Date de modification</th>
+                <th>Editer</th>
             </tr>
         </thead>
         <tbody>
@@ -24,22 +23,21 @@
             <tr>
                 <td>{{ post.id }}</td>
                 <td>{{ post.title }}</td>
-                <td>{{ post.slug }}</td>
                 <td>{{ post.content }}</td>
                 <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ post.updatedAt ? post.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_posts_show', {'slug': post.slug}) }}">show</a>
-                    <a href="{{ path('app_posts_edit', {'slug': post.slug}) }}">edit</a>
+                    <a href="{{ path('app_posts_show', {'slug': post.slug}) }}">Voir</a>
+                    <a href="{{ path('app_posts_edit', {'slug': post.slug}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">Aucune publication</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_posts_new') }}">Create new</a>
+    <a href="{{ path('app_posts_new') }}">Nouvelle publication</a>
 {% endblock %}
