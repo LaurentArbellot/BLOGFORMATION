@@ -28,14 +28,23 @@
                 <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                {# <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                     <a class="nav-link {% if page == 'app_posts_index' %}active{% endif %}"  href="{{ path ('app_posts_index')}}">Blog</a>
                     <a class="nav-link {% if page == 'app_main_contact' %}active{% endif %}" href="{{path('app_main_contact')}}">Contact</a>
                     <a class="nav-link {% if page == 'app_posts_new' %}active{% endif %}" href="{{path('app_posts_new')}}">Publier</a>
                    
-                    </div>
+                    </div> #}
+                {###  MENU GAUCHE  ###} 
+                <div class="navbar-nav">
+                    <a class="nav-link {% if page == 'app_posts_index' %}active{% endif %}" href="{{ path('app_posts_index') }}">Blog</a>
+                    <a class="nav-link {% if page == 'app_main_contact' %}active{% endif %}" href="{{ path('app_main_contact') }}">Contactez-nous</a>
+                    {% if is_granted ('ROLE_AUTHOR') %}  
+                    
 
+                        <a class="nav-link {% if page == 'app_posts_new' %}active{% endif %}" href="{{ path('app_posts_new') }}"> Nouvelle Publication</a>
+                   {% endif %} 
+                </div>
                     {# (###menu droite) #}
                 <div class='navbar-nav ms-auto '>
                     {% if app.user %}

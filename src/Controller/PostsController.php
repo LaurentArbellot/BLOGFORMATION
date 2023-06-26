@@ -11,6 +11,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+
+
 #[Route('/articles')]
 class PostsController extends AbstractController
 {
@@ -21,7 +24,7 @@ class PostsController extends AbstractController
             'posts' => $postsRepository->findAll(),
         ]);
     }
-
+    #[IsGranted('ROLE_AUTHOR')]
     #[Route('/nouveau', name: 'app_posts_new', methods: ['GET', 'POST'])]
     public function new(Request $request, PostsRepository $postsRepository): Response
     {
@@ -30,10 +33,9 @@ class PostsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // a faire pour que la date se cree au moment du validform
-            // $post->setCreatedAt(new \DateTimeImmutable());
-            // sion veut que le setter s'en charge
-            // $post->setCreatedAt();
+            // L'auteur est enregistré avec l'utilisateur connecté
+            $post->setAuthor($this->getUser());
+           
             $postsRepository->save($post, true);
 
             return $this->redirectToRoute('app_posts_index', [], Response::HTTP_SEE_OTHER);

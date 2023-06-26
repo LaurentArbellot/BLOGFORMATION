@@ -9,6 +9,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 // SLUG
 use Gedmo\Mapping\Annotation as Gedmo;
+// CONTRAINTES
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PostsRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -19,6 +21,13 @@ class Posts
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 10,
+        max: 25,
+        minMessage: 'Le titre doit comporter au moins {{ limit }} caractères',
+        maxMessage: 'Le titre doit comporter {{ limit }} caractères au maximum ',
+    )]
     #[ORM\Column(length: 100)]
     private ?string $title = null;
 
@@ -26,6 +35,7 @@ class Posts
     #[Gedmo\Slug(fields: ['title'])]
     private ?string $slug = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
@@ -37,6 +47,11 @@ class Posts
 
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comments::class)]
     private Collection $comments;
+
+    #[ORM\ManyToOne(inversedBy: 'posts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Users $author = null;
+
 
     public function __construct()
     {
@@ -135,4 +150,17 @@ class Posts
 
         return $this;
     }
+
+    public function getAuthor(): ?Users
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?Users $author): static
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
 }

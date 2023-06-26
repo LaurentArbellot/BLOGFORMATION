@@ -23,6 +23,8 @@ class PostsType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Posts::class,
+            // enleve les controles de front boostrap
+            'attr' => [ 'novalidate' => 'novalidate' ] // comment me to reactivate the html5 validation!
         ]);
     }
 }

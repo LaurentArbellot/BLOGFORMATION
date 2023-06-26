@@ -11,6 +11,7 @@ class MainController extends AbstractController
     #[Route('/', name: 'home')]
     public function home(PostsRepository $postsRepository ): Response
     {
+       
         return $this->render('main/home.html.twig', [
             'posts' => $postsRepository->findAll(),
         ]);
