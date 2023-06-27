@@ -63,6 +63,9 @@ RECAPTCHA3_KEY=my_site_key
 RECAPTCHA3_SECRET=my_secret
 ###< karser/recaptcha3-bundle ###
 
-
-
+```
+## fixtures
+```
+composer require --dev orm-fixtures
+symfony console doctrine:fixtures:load --env=test
 ```
