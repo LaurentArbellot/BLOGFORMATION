@@ -23,14 +23,14 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(message:'L\email est obligatoire')]
     #[Assert\Email(
         message: 'l\'Email {{ value }} n\'est pas valide.',
     )]
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
-    #[Assert\NotBlank]
+    #[Assert\NotBlank (message:'Le nom d\'utilisateur est obligatoire')]
     #[Assert\Length(
         min: 4,
         max: 25,

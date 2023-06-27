@@ -35,6 +35,7 @@ class PostsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // L'auteur est enregistré avec l'utilisateur connecté
             $post->setAuthor($this->getUser());
+            // sauvegarde l'article en bdd
            
             $postsRepository->save($post, true);
 
@@ -46,7 +47,7 @@ class PostsController extends AbstractController
             'form' => $form,
         ]);
     }
-
+    #[IsGranted('ROLE_USER')] 
     #[Route('/{slug}', name: 'app_posts_show', methods: ['GET'])]
     public function show(Posts $post): Response
     {
@@ -54,23 +55,31 @@ class PostsController extends AbstractController
             'post' => $post,
         ]);
     }
-
+    #[IsGranted('ROLE_AUTHOR')]
     #[Route('/{slug}/modifier', name: 'app_posts_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Posts $post, PostsRepository $postsRepository): Response
     {
-        $form = $this->createForm(PostsType::class, $post);
-        $form->handleRequest($request);
+        if($post->getAuthor() === $this->getUser()){
+            $form = $this->createForm(PostsType::class, $post);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $postsRepository->save($post, true);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $postsRepository->save($post, true);
 
-            return $this->redirectToRoute('app_posts_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_posts_index', [], Response::HTTP_SEE_OTHER);
+            }
+
+            return $this->render('posts/edit.html.twig', [
+                'post' => $post,
+                'form' => $form,
+            ]);
+
+            }else{
+            $this->addFlash('warning',' Seul l\auteur peut modifier cette publication');
+            return $this->redirectToRoute('app_posts_index');
         }
 
-        return $this->render('posts/edit.html.twig', [
-            'post' => $post,
-            'form' => $form,
-        ]);
+        
     }
 
     #[Route('/{slug}', name: 'app_posts_delete', methods: ['POST'])]
