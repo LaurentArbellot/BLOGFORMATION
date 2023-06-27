@@ -48,3 +48,21 @@ composer require symfony/google-mailer (Bridge de connexion à gmail)
 composer require stof/doctrine-extensions-bundle
 [ La Documentation ](https://symfony.com/bundles/StofDoctrineExtensionsBundle/current/index.html)
  et [  Pour le configurer  ](https://github.com/doctrine-extensions/DoctrineExtensions/blob/main/doc/sluggable.md)
+
+
+## google RECAPTCHA :
+```
+aire un compte sur google recaptcha
+rentrer les infos du site
+mettre sous v3 
+generer les clés
+mettre ce code dans .env avec les clés
+
+###> karser/recaptcha3-bundle ###
+RECAPTCHA3_KEY=my_site_key
+RECAPTCHA3_SECRET=my_secret
+###< karser/recaptcha3-bundle ###
+
+
+
+```
